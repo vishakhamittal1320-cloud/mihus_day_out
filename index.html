@@ -210,8 +210,8 @@ function pickGame() {
   const choice = randomPick(["Bowling 🎳", "Arcade 🕹️"]);
   const suggestion =
     choice.includes("Bowling")
-      ? "Smaash / Amoeba / Zoreko / Mystery Room"
-      : "Smaash / Timezone / Zoreko / Mystery Room";
+      ? "Pink Falcon / Smaash / Amoeba / Zoreko / Mystery Room"
+      : "Pink Falcon / Smaash / Timezone / Zoreko / Mystery Room";
 
   document.getElementById("game").innerHTML =
     `${choice}<div class="suggestion">${suggestion}</div>`;
