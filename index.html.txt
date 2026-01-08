@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mihu’s Day Out 💛</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #fff7c2, #ffe29f);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.card {
+  background: #fff;
+  width: 92%;
+  max-width: 380px;
+  border-radius: 26px;
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  animation: fadeIn 1s ease;
+}
+
+.hidden { display: none; }
+
+h1 {
+  font-size: 26px;
+  color: #b7791f;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 22px;
+}
+
+button {
+  background: linear-gradient(135deg, #f6b93b, #f08a5d);
+  border: none;
+  border-radius: 30px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  width: 100%;
+  margin: 10px 0;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+button:active { transform: scale(0.97); }
+
+.result {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  animation: pop 0.4s ease;
+  color: #333;
+}
+
+.suggestion {
+  font-size: 13px;
+  font-weight: 500;
+  color: #777;
+  margin-top: 6px;
+}
+
+.music-btn {
+  background: #fff;
+  color: #b7791f;
+  border: 1.5px solid #f6b93b;
+}
+
+.memory-img {
+  width: 100%;
+  border-radius: 18px;
+  margin: 14px 0;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  animation: fadeUp 1s ease;
+}
+
+.footer {
+  font-size: 14px;
+  color: #666;
+  margin-top: 16px;
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="card" id="intro">
+  <h1>🚗 Car Unlocked!</h1>
+  <div class="subtitle">
+    Mihu’s Day Out is ready to roll.<br>
+    Birthday boy, take the wheel 🎂
+  </div>
+
+  <button onclick="startDay()">Start the Drive ➡️</button>
+</div>
+
+<!-- MAIN PAGE -->
+<div class="card hidden" id="page1">
+  <h1>Mihu’s Day Out ✨</h1>
+  <div class="subtitle">
+    Turning 25 with choices you’ll be fully responsible for 😌
+  </div>
+
+  <button class="music-btn" onclick="toggleMusic()">🎵 Play / Pause Music</button>
+
+  <button onclick="pickLunch()">Choose Lunch 🍽️</button>
+  <div class="result" id="lunch"></div>
+
+  <button onclick="pickGame()">Choose Fun 🎳</button>
+  <div class="result" id="game"></div>
+
+  <button onclick="pickEvening()">Choose Evening 🌆</button>
+  <div class="result" id="evening"></div>
+
+  <button onclick="goToMemories()">End the Day 💛</button>
+</div>
+
+<!-- MEMORY PAGE -->
+<div class="card hidden" id="page2">
+  <div class="subtitle">
+    No matter what you picked today,<br>
+    this day was all about you.
+  </div>
+
+  <img src="images/memory1.jpg" class="memory-img">
+  <img src="images/memory2.jpg" class="memory-img">
+  <img src="images/memory3.jpg" class="memory-img">
+
+  <div class="footer">
+    Let’s end the day with a South Indian meal 🌸<br>
+    Because that’s your forever favourite 💛
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+function toggleMusic() {
+  music.paused ? music.play() : music.pause();
+}
+
+function randomPick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function startDay() {
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("page1").classList.remove("hidden");
+}
+
+function pickLunch() {
+  const choice = randomPick(["Asian 🍜", "Italian 🍝"]);
+  const suggestion =
+    choice.includes("Asian")
+      ? "PaPaYa / Sorbo / Japonico"
+      : "Evoo / Melt House / Vicoli";
+
+  document.getElementById("lunch").innerHTML =
+    `${choice}<div class="suggestion">${suggestion}</div>`;
+}
+
+function pickGame() {
+  const choice = randomPick(["Bowling 🎳", "Arcade 🕹️"]);
+  const suggestion =
+    choice.includes("Bowling")
+      ? "Smaash / Amoeba / Zoreko / Mystery Room"
+      : "Smaash / Timezone / Zoreko / Mystery Room";
+
+  document.getElementById("game").innerHTML =
+    `${choice}<div class="suggestion">${suggestion}</div>`;
+}
+
+function pickEvening() {
+  const choice = randomPick(["Brewery 🍺", "Pickle Ball 🏓"]);
+  const suggestion =
+    choice.includes("Brewery")
+      ? "Clock Tower / Manhattan / Quaff Brewing Co"
+      : "You know it best 😉";
+
+  document.getElementById("evening").innerHTML =
+    `${choice}<div class="suggestion">${suggestion}</div>`;
+}
+
+function goToMemories() {
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
+  launchConfetti();
+}
+
+function launchConfetti() {
+  for (let i = 0; i < 40; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.backgroundColor =
+      ["#f6b93b","#f08a5d","#b7791f","#ffd56b"][Math.floor(Math.random()*4)];
+    confetti.style.animationDuration = 2 + Math.random() * 2 + "s";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 4000);
+  }
+}
+</script>
+
+</body>
+</html>
