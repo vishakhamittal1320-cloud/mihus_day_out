@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mihu’s Day Out</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #fff1eb, #fce7f3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen {
+  display: none;
+  background: #fff;
+  width: 90%;
+  max-width: 390px;
+  border-radius: 26px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  animation: fade 0.8s ease;
+}
+
+.screen.active { display: block; }
+
+h1 {
+  color: #b7791f;
+  font-size: 26px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 16px 0 24px;
+}
+
+button {
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  border: none;
+  border-radius: 30px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  width: 100%;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+button:active { transform: scale(0.96); }
+
+.music-btn {
+  background: #fff;
+  color: #b7791f;
+  border: 1.5px solid #f6d365;
+}
+
+.result {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  animation: pop 0.4s ease;
+}
+
+img {
+  width: 100%;
+  border-radius: 16px;
+  margin-top: 16px;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen active" id="intro">
+  <h1>🚗 Mihu’s Day Out</h1>
+  <div class="subtitle">
+    Let’s celebrate your 25th 🎉<br>
+    You choose the plans…<br>
+    I handle the surprises 😌💛
+  </div>
+  <button onclick="show('choices')">🔓 Unlock the Car</button>
+</div>
+
+<div class="screen" id="choices">
+  <h1>Make Your Choices 😏</h1>
+  <button class="music-btn" onclick="toggleMusic()">🎵 Play / Pause Music</button>
+
+  <button onclick="pick('lunch', ['Asian 🍜','Italian 🍝'])">Choose Lunch 🍽️</button>
+  <div id="lunch" class="result"></div>
+
+  <button onclick="pick('fun', ['Bowling 🎳','Arcade 🕹️'])">Choose Fun 🎯</button>
+  <div id="fun" class="result"></div>
+
+  <button onclick="pick('evening', ['Brewery 🍺','Pickle Ball 🏓'])">Choose Evening 🌆</button>
+  <div id="evening" class="result"></div>
+
+  <button onclick="finish()">Finish My Day 💛</button>
+</div>
+
+<div class="screen" id="memory">
+  <h1>📸 One for the Memory</h1>
+  <div class="subtitle">
+    No matter what you picked today,<br>
+    I’d pick you every time 🤍
+  </div>
+
+  <img src="https://via.placeholder.com/350x220?text=Add+Your+Photo">
+
+  <div class="subtitle">
+    Ending with South Indian dinner 🌸<br>
+    Because some things are fixed 😉
+  </div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<script>
+const music = document.getElementById("music");
+
+function toggleMusic() {
+  music.paused ? music.play() : music.pause();
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function pick(id, options) {
+  document.getElementById(id).innerText =
+    "✨ " + options[Math.floor(Math.random() * options.length)];
+}
+
+function finish() {
+  show('memory');
+  confetti();
+}
+
+function confetti() {
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement('div');
+    c.style.position = 'fixed';
+    c.style.top = '-10px';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.width = '8px';
+    c.style.height = '8px';
+    c.style.background = ['#f6d365','#fda085','#ffd700'][Math.floor(Math.random()*3)];
+    c.style.animation = 'fall 3s linear';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+</script>
+
+<style>
+@keyframes fall {
+  to { transform: translateY(100vh) rotate(360deg); }
+}
+</style>
+
+</body>
+</html>
