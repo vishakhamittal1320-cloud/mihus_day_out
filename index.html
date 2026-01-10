@@ -162,7 +162,7 @@ button:active::after {
 
 <!-- INTRO -->
 <div class="card" id="intro">
-  <h1>🚗 Car Unlocked!</h1>
+  <h1>🚗 Happy Birthday!❤️🌍</h1>
   <div class="subtitle">
     You pick the routes.<br>
     I’ll make sure the day feels perfect 😌
@@ -258,7 +258,7 @@ function pickGame() {
 function pickEvening() {
   const choice = randomPick(["Brewery 🍺", "Pickle Ball 🏓"]);
   const suggestion = choice.includes("Brewery")
-    ? "Clock Tower / Manhattan / Quaff Brewing Co"
+    ? "WorldMark Aerocity"
     : "You know it best 😉";
 
   document.getElementById("evening").innerHTML =
@@ -281,7 +281,7 @@ function launchConfetti() {
       ["#f6b93b","#f08a5d","#b7791f","#ffd56b"]
       [Math.floor(Math.random() * 4)];
     confetti.style.animationDuration =
-      2 + Math.random() * 2 + "s";
+      2 + Math.random() * 12 + "s";
     document.body.appendChild(confetti);
     setTimeout(() => confetti.remove(), 4000);
   }
